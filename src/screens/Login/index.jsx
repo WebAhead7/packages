@@ -16,12 +16,13 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const Login = () => {
   const [values, setValues] = useState({
-    amount: "",
+    email: "",
     password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
   });
+
+  const handlerInputs = (event, inputName) => {
+    setValues({ ...values, [inputName]: event.target.value });
+  };
 
   return (
     <div>
@@ -29,14 +30,30 @@ const Login = () => {
         <p style={styles.header}>Login</p>
         <FormControl>
           <InputLabel htmlFor="email">Email</InputLabel>
-          <Input type="email" label="Email" id="email" />
+          <Input
+            type="email"
+            label="Email"
+            id="email"
+            onChange={(e) => handlerInputs(e, "email")}
+            value={values.email}
+          />
         </FormControl>
         <FormControl>
           <InputLabel htmlFor="password">Password</InputLabel>
-          <Input id="password" type={"password"} value={values.password} />
+          <Input
+            id="password"
+            type={"password"}
+            value={values.password}
+            onChange={(e) => handlerInputs(e, "password")}
+          />
         </FormControl>
       </div>
-      <Button variant="contained" color="primary" style={{ marginTop: 50 }}>
+      <Button
+        variant="contained"
+        color="primary"
+        style={{ marginTop: 50 }}
+        onClick={() => console.log(values)}
+      >
         Login
       </Button>
     </div>
