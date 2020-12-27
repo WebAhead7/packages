@@ -25,28 +25,30 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div style={styles.container}>
+    <div style={styles.container}>
+      <div style={styles.innerContainer}>
         <p style={styles.header}>Login</p>
-        <FormControl>
-          <InputLabel htmlFor="email">Email</InputLabel>
-          <Input
-            type="email"
-            label="Email"
-            id="email"
-            onChange={(e) => handlerInputs(e, "email")}
-            value={values.email}
-          />
-        </FormControl>
-        <FormControl>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <Input
-            id="password"
-            type={"password"}
-            value={values.password}
-            onChange={(e) => handlerInputs(e, "password")}
-          />
-        </FormControl>
+        <form>
+          <FormControl>
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <Input
+              type="email"
+              label="Email"
+              id="email"
+              onChange={(e) => handlerInputs(e, "email")}
+              value={values.email}
+            />
+          </FormControl>
+          <FormControl>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <Input
+              id="password"
+              type={"password"}
+              value={values.password}
+              onChange={(e) => handlerInputs(e, "password")}
+            />
+          </FormControl>
+        </form>
       </div>
       <Button
         variant="contained"

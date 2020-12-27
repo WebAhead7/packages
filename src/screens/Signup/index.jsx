@@ -25,8 +25,8 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <div style={styles.container}>
+    <div style={styles.container}>
+      <div style={styles.innerContainer}>
         <p style={styles.header}>Sign up</p>
         <FormControl>
           <InputLabel htmlFor="email">Email</InputLabel>
