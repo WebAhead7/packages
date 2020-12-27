@@ -6,9 +6,9 @@ import Signup from "./screens/Signup";
 function App() {
   return (
     <div className="App">
-      {/* <Home /> */}
+      <Home />
       {/* <Login /> */}
-      <Signup />
+      {/* <Signup /> */}
     </div>
   );
 }
