@@ -9,12 +9,15 @@ import {
   IconButton,
   InputLabel,
   FormControl,
+  Container,
 } from "@material-ui/core";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
-import styles from "./styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import useStyles from "./styles";
 
 const Login = () => {
+  const styles = useStyles();
+
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -25,11 +28,11 @@ const Login = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.innerContainer}>
-        <p style={styles.header}>Login</p>
+    <Container>
+      <div>
+        <p className={styles.header}>Login</p>
         <form>
-          <FormControl>
+          <FormControl style={{ width: "100%" }}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <Input
               type="email"
@@ -39,7 +42,7 @@ const Login = () => {
               value={values.email}
             />
           </FormControl>
-          <FormControl>
+          <FormControl style={{ width: "100%", marginTop: 15 }}>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
               id="password"
@@ -49,16 +52,24 @@ const Login = () => {
             />
           </FormControl>
         </form>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginTop: 50, width: "100%" }}
+          onClick={() => console.log(values)}
+        >
+          Login
+        </Button>
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        style={{ marginTop: 50 }}
-        onClick={() => console.log(values)}
-      >
-        Login
-      </Button>
-    </div>
+      <div className={styles.signup}>
+        <Typography variant="caption">
+          If you don’t have an account, please register.
+        </Typography>
+        <Button variant="outlined" color="primary" style={{ marginTop: 20 }}>
+          Signup
+        </Button>
+      </div>
+    </Container>
   );
 };
 
