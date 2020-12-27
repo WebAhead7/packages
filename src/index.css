@@ -57,7 +57,7 @@ code {
     justify-content: center;
     align-items: center;
     background: #14212b;
-    height: 100%;
+    height: 100vh;
     width: 100%;
   }
   * {

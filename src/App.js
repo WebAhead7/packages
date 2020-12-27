@@ -1,14 +1,15 @@
 import "./App.css";
 import Home from "./screens/Home";
-import Login from "./screens/Login";
-import Signup from "./screens/Signup";
+import Navigation from "./navigation/Navigation";
+import TabRouter from "./navigation/Router";
 
 function App() {
   return (
     <div className="App">
-      <Home />
-      {/* <Login /> */}
-      {/* <Signup /> */}
+      <TabRouter />
+      <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
+        <Navigation />
+      </div>
     </div>
   );
 }
