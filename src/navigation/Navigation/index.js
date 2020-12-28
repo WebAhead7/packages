@@ -3,13 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import FolderIcon from "@material-ui/icons/Folder";
-import Home from "@material-ui/icons/Home";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PersonIcon from "@material-ui/icons/Person";
-import { Link, BrowserRouter as Router, Switch } from "react-router-dom";
-import { ListItem } from "@material-ui/core";
-import Profile from "../../screens/Package";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import Home from "../../screens/Home";
+import Package from "../../screens/Package";
+import Login from "../../screens/Login";
+export const HomeRoute = "/";
+export const ProfileRoute = "/profile";
+export const LoginRoute = "/login";
 
 const useStyles = makeStyles({
   root: {
@@ -30,38 +35,24 @@ export default function RouterTab() {
       value={value}
       onChange={handleChange}
       className={styles.root}
-      component={Router}
     >
-      <BottomNavigationAction
-        label="Home"
-        value="home"
-        icon={<Home />}
-        component={Link}
-        to="/"
-      />
+      <BottomNavigationAction label="Home" value="home" icon={<Home />} />
 
       <BottomNavigationAction
         label="Favorites"
         value="favorites"
         icon={<FavoriteIcon />}
-        component={Link}
-        to="/favorite"
       />
       <BottomNavigationAction
         label="Nearby"
         value="nearby"
         icon={<LocationOnIcon />}
-        component={Link}
-        to="/profile"
       />
 
       <BottomNavigationAction
         label="Profile"
         value="profile"
-        to="/profile"
         icon={<PersonIcon />}
-        component={Link}
-        to="/profile"
       />
     </BottomNavigation>
   );

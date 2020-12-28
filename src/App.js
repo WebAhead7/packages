@@ -1,15 +1,17 @@
+import React, { useState } from "react";
 import "./App.css";
 import Home from "./screens/Home";
+import Header from "./components/Header";
+
 import Navigation from "./navigation/Navigation";
-import TabRouter from "./navigation/Router";
+import DrawerNav from "./navigation/Router";
 
 function App() {
+  const [nav, setNav] = useState(false);
   return (
     <div className="App">
-      <TabRouter />
-      <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
-        <Navigation />
-      </div>
+      <Header />
+      <DrawerNav nav={nav} setNav={setNav} />
     </div>
   );
 }

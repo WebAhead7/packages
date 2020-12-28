@@ -11,13 +11,13 @@ import {
   Button,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { filterContext } from "../../context/context";
+import { globalContext } from "../../context/context";
 
 import useStyles from "./styles";
 
 const Filter = () => {
   const styles = useStyles();
-  const { filter, setFilter } = useContext(filterContext);
+  const { filter, setFilter } = useContext(globalContext);
 
   const handlerFilter = (e) => {
     setFilter(e.target.value);
