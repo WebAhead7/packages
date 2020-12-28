@@ -1,20 +1,17 @@
+import React, { useState } from "react";
 import "./App.css";
-import Addbackage from "./screens/addBackage";
-import Addbusiness from "./screens/addBusiness";
 import Home from "./screens/Home";
-import Login from "./screens/Login";
-import Signup from "./screens/Signup";
-import Addclient from "./screens/addClient";
+import Header from "./components/Header";
+
+import Navigation from "./navigation/Navigation";
+import DrawerNav from "./navigation/Router";
 
 function App() {
+  const [nav, setNav] = useState(false);
   return (
     <div className="App">
-      {/* <Home /> */}
-      {/* <Login /> */}
-      {/* <Signup /> */}
-      {/* <Addbusiness /> */}
-      <Addbackage />
-      {/* <Addclient /> */}
+      <Header />
+      <DrawerNav nav={nav} setNav={setNav} />
     </div>
   );
 }

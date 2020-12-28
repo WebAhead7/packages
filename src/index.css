@@ -8,10 +8,7 @@ body {
 }
 
 html {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #14212b;
+  background: #fff;
 }
 
 code {
@@ -21,16 +18,12 @@ code {
 
 #root {
   width: 100%;
-  height: 100%;
 }
 
 @media all and (min-width: 550px) {
   html {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: #14212b;
-    height: 100vh;
+
     width: 100%;
   }
   * {
@@ -38,8 +31,8 @@ code {
   }
   body {
     margin: 0;
-    height: 620px;
-    width: 292px;
+
+    width: 420px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,18 +40,14 @@ code {
   }
   #root {
     width: 100%;
-    height: 100%;
   }
 }
 
 @media all and (max-width: 550px) {
   html {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #14212b;
+    background: #fff;
+
     height: 100%;
-    width: 100%;
   }
   * {
     box-sizing: border-box;
@@ -69,11 +58,10 @@ code {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+
     background: #fff;
   }
   #root {
     width: 100%;
-    height: 100%;
   }
 }

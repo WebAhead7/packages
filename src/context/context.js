@@ -1,20 +1,23 @@
 import React, { createContext, useState } from "react";
 
-export const filterContext = createContext();
+export const globalContext = createContext();
 
-const FilterContextProvider = (props) => {
+const GlobalContextProvider = (props) => {
   const [filter, setFilter] = useState("all");
+  const [drawer, setDrawer] = useState(false);
 
   return (
-    <filterContext.Provider
+    <globalContext.Provider
       value={{
         filter,
         setFilter,
+        drawer,
+        setDrawer,
       }}
     >
       {props.children}
-    </filterContext.Provider>
+    </globalContext.Provider>
   );
 };
 
-export default FilterContextProvider;
+export default GlobalContextProvider;
