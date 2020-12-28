@@ -31,7 +31,7 @@ const agent = {
 };
 
 const PackageTabs = () => {
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
 
   const styles = useStyles();
 
