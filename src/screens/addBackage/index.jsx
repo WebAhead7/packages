@@ -109,7 +109,7 @@ const Addbackage = () => {
           color="primary"
           size="large"
           startIcon={<AddIcon />}
-          className={styles.Add_button}
+          className={styles.add_button}
         >
           Add Client
         </Button>

@@ -14,11 +14,17 @@ import Home from "../../screens/Home";
 import Package from "../../screens/Package";
 import Login from "../../screens/Login";
 import Profile from "../../screens/Profile";
+import Register from "../../screens/Signup";
+import AddPackage from "../../screens/AddBackage";
+import AddBusiness from "../../screens/AddBusiness";
 
 export const HomeRoute = "/";
 export const PackageRoute = "/package";
 export const LoginRoute = "/login";
 export const ProfileRoute = "/profile";
+export const RegisterRoute = "/register";
+export const AddPackageRoute = "/add_package";
+export const AddBusinessRoute = "/add_business";
 
 const useStyles = makeStyles({
   list: {
@@ -92,6 +98,42 @@ export default function DrawerNav() {
                   <ListItemText primary={"Profile"} />
                 </ListItem>
               </Link>
+              <Link
+                to={RegisterRoute}
+                className={styles.link}
+                style={{ textDecoration: "none", color: "#000" }}
+              >
+                <ListItem button onClick={toggleDrawer}>
+                  <ListItemIcon>
+                    <InfoIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Register"} />
+                </ListItem>
+              </Link>
+              <Link
+                to={AddPackageRoute}
+                className={styles.link}
+                style={{ textDecoration: "none", color: "#000" }}
+              >
+                <ListItem button onClick={toggleDrawer}>
+                  <ListItemIcon>
+                    <InfoIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Add Package"} />
+                </ListItem>
+              </Link>
+              <Link
+                to={AddBusinessRoute}
+                className={styles.link}
+                style={{ textDecoration: "none", color: "#000" }}
+              >
+                <ListItem button onClick={toggleDrawer}>
+                  <ListItemIcon>
+                    <InfoIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Add Business"} />
+                </ListItem>
+              </Link>
             </List>
           </Drawer>
 
@@ -107,6 +149,15 @@ export default function DrawerNav() {
             </Route>
             <Route path={ProfileRoute}>
               <Profile />
+            </Route>
+            <Route path={RegisterRoute}>
+              <Register />
+            </Route>
+            <Route path={AddPackageRoute}>
+              <AddPackage />
+            </Route>
+            <Route path={AddBusinessRoute}>
+              <AddBusiness />
             </Route>
           </Switch>
         </React.Fragment>

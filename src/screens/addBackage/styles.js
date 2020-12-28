@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 
   add_button: {
-    padding: 20,
+    padding: 10,
     marginTop: 50,
     width: "60%",
   },

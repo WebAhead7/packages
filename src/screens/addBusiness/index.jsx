@@ -19,7 +19,17 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import useStyles from "./styles";
 
-const Addbusiness = () => {
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const AddBusiness = () => {
   const categories = [
     {
       value: "food",
@@ -49,6 +59,23 @@ const Addbusiness = () => {
   const [selectedDate, setSelectedDate] = useState(
     new Date("2014-08-18T21:11:54")
   );
+
+  const [dates, setDate] = useState({
+    Sunday: new Date("2014-08-18T21:11:54"),
+    Monday: new Date("2014-08-18T21:11:54"),
+    Tuesday: Date("2014-08-18T21:11:54"),
+    Wednesday: new Date("2014-08-18T21:11:54"),
+    Thursday: new Date("2014-08-18T21:11:54"),
+    Friday: new Date("2014-08-18T21:11:54"),
+    Saturday: new Date("2014-08-18T21:11:54"),
+    Sunday1: new Date("2014-08-18T21:11:54"),
+    Monday1: new Date("2014-08-18T21:11:54"),
+    Tuesday1: new Date("2014-08-18T21:11:54"),
+    Wednesday1: new Date("2014-08-18T21:11:54"),
+    Thursday1: new Date("2014-08-18T21:11:54"),
+    Friday1: new Date("2014-08-18T21:11:54"),
+    Saturday1: new Date("2014-08-18T21:11:54"),
+  });
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -93,7 +120,48 @@ const Addbusiness = () => {
             ))}
           </TextField>
           <p className={styles.title}>Working Days</p>
-          <FormControl className={styles.input_top}>
+
+          {days.map((day, index) => (
+            <FormControl className={styles.input_top} key={index}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Grid container spacing={3}>
+                  <Grid item xs>
+                    <p>{day}</p>
+                  </Grid>
+                  <Grid item xs>
+                    <KeyboardTimePicker
+                      margin="normal"
+                      id={day}
+                      label="Open Hour"
+                      value={dates[day]}
+                      onChange={(date) =>
+                        setDate(...dates, (dates[day] = date))
+                      }
+                      KeyboardButtonProps={{
+                        "aria-label": "change time",
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs>
+                    <KeyboardTimePicker
+                      margin="normal"
+                      id={`${day}1`}
+                      label="Close Hour"
+                      value={dates[`${day}1`]}
+                      onChange={(date) =>
+                        setDate(...dates, (dates[`${day}1`] = date))
+                      }
+                      KeyboardButtonProps={{
+                        "aria-label": "change time",
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </MuiPickersUtilsProvider>
+            </FormControl>
+          ))}
+
+          {/* <FormControl className={styles.input_top}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Grid container spacing={3}>
                 <Grid item xs>
@@ -328,7 +396,7 @@ const Addbusiness = () => {
                 </Grid>
               </Grid>
             </MuiPickersUtilsProvider>
-          </FormControl>
+          </FormControl> */}
 
           <FormControl className={styles.input_top}>
             <InputLabel htmlFor="phone">Phone</InputLabel>
@@ -392,4 +460,4 @@ const Addbusiness = () => {
   );
 };
 
-export default Addbusiness;
+export default AddBusiness;
