@@ -13,21 +13,19 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     margin: 20,
   },
-  signup: {
-    display: "flex",
-    flexDirection: "column",
-    alignSelf: "flex-end",
-    marginTop: 50,
-  },
-
   input_top: {
     marginTop: 15,
     width: "100%",
   },
-
   button: {
     marginTop: 50,
     width: "100%",
+  },
+
+  title: {
+    textAlign: "left",
+    fontSize: 15,
+    fontWeight: "bolder",
   },
 });
 
