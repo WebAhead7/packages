@@ -22,9 +22,14 @@ const useStyles = makeStyles({
 
   input_top: {
     marginTop: 15,
-    width: "100%",
+    width: "90%",
   },
 
+  add_button: {
+    padding: 20,
+    marginTop: 50,
+    width: "60%",
+  },
   button: {
     marginTop: 50,
     width: "100%",
