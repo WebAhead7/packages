@@ -32,7 +32,7 @@ export const PackageRoute = "/package";
 export const LoginRoute = "/login";
 export const ProfileRoute = "/profile";
 export const RegisterRoute = "/register";
-export const AddPackageRoute = "/add_package";
+export const AddPackageRoute = "/addBackage";
 export const AddBusinessRoute = "/add_business";
 
 const useStyles = makeStyles({

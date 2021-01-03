@@ -4,7 +4,7 @@ import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import useStyles from "./styles";
 
 const PackageItem = (props) => {
-  const { data } = props;
+  const { data } = props.data;
   const styles = useStyles();
   return (
     <Card className={styles.root}>
@@ -18,7 +18,7 @@ const PackageItem = (props) => {
               Added at
             </Typography>
             <Typography variant="caption" className={styles.mainTitle}>
-              {data.addedAt}
+              {data.createdAt}
             </Typography>
           </div>
           <div className={styles.innerCard}>
