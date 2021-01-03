@@ -12,18 +12,19 @@ export const useLogin = async (loginInfo, setAuth) => {
     const res = await fetch(options.url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      data: JSON.stringify(loginInfo),
+      body: JSON.stringify(loginInfo),
     });
 
     const response = await res.json();
 
-    setAuth({
-      isAuth: true,
-      error: null,
-      token: res.accessToken,
-    });
-
     console.log(response);
+    if (response.owner) {
+      setAuth({
+        isAuth: true,
+        error: null,
+        token: res.accessToken,
+      });
+    }
   } catch (e) {
     setAuth({
       isAuth: false,
