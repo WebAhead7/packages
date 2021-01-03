@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const useLogin = async (loginInfo, setAuth) => {
+export const ownerLogin = async (loginInfo, setAuth) => {
   const options = {
     method: "POST",
     url: "http://localhost:4000/owner/login",

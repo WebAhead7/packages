@@ -11,17 +11,26 @@ import {
   InputLabel,
   FormControl,
   Container,
+  Backdrop,
 } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import useStyles from "./styles";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { useLogin } from "../../hooks/useLogin";
+import { ownerLogin } from "../../hooks/useLogin";
 
 const Login = (props) => {
   const styles = useStyles();
   const { drawer, setDrawer, auth, setAuth } = useContext(globalContext);
   const location = useLocation();
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
 
   const [values, setValues] = useState({
     email: "",
@@ -29,7 +38,7 @@ const Login = (props) => {
   });
 
   const handleLogin = (v) => {
-    useLogin(v, setAuth);
+    ownerLogin(v, setAuth);
   };
 
   const handlerInputs = (event, inputName) => {
@@ -87,6 +96,13 @@ const Login = (props) => {
           Signup
         </Link>
       </div>
+      <Backdrop
+        style={{ zIndex: 1, color: "#fff" }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Container>
   );
 };
