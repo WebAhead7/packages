@@ -108,3 +108,47 @@ export const getOwnerProfile = async (setOwnerInfo, token) => {
     });
   }
 };
+
+export const signUpApi = async (setAuth, data) => {
+  const options = {
+    method: "POST",
+    url: "http://localhost:4000/owner/signup",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+
+  try {
+    const res = await fetch(options.url, options);
+
+    setAuth({
+      isAuth: false,
+      error: null,
+      token: null,
+      isLoading: true,
+    });
+
+    const response = await res.json();
+
+    console.log(response);
+
+    if (response.accessToken) {
+      setAuth({
+        isAuth: true,
+        error: null,
+        token: response.accessToken,
+        isLoading: false,
+      });
+
+      setItemLocal("accessToken", response.accessToken);
+    }
+  } catch (e) {
+    setAuth({
+      isAuth: false,
+      error: e.message,
+      token: null,
+      isLoading: false,
+    });
+  }
+};

@@ -5,22 +5,29 @@ import useStyles from "./styles";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import EditIcon from "@material-ui/icons/Edit";
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+  const { email, phone, mobile } = props.data.data;
   const styles = useStyles();
 
   return (
     <div style={{ width: "100%" }}>
       <Typography variant="caption" style={{ color: "#727272" }}>
-        Name
+        Email address
       </Typography>
       <Typography variant="subtitle2" style={{ color: "#5A5A5A" }}>
-        Lastname
+        {email}
       </Typography>
       <Typography variant="caption" style={{ color: "#727272" }}>
-        Address
+        Phone number
       </Typography>
       <Typography variant="subtitle2" style={{ color: "#5A5A5A" }}>
-        October 02, 2019
+        {phone}
+      </Typography>
+      <Typography variant="caption" style={{ color: "#727272" }}>
+        Mobile number
+      </Typography>
+      <Typography variant="subtitle2" style={{ color: "#5A5A5A" }}>
+        {mobile}
       </Typography>
     </div>
   );

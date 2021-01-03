@@ -20,16 +20,16 @@ import {
 const Header = (props) => {
   const location = useLocation();
   const routes = [
-    // HomeRoute,
     PackageRoute,
-    LoginRoute,
     ProfileRoute,
     RegisterRoute,
     AddPackageRoute,
     AddBusinessRoute,
   ];
 
-  const isBack = (r) => routes.some((route) => route == r);
+  const isBack = (r) => routes.some((route) => route === r);
+
+  console.log(isBack(location.pathname));
 
   let history = useHistory();
 
@@ -42,27 +42,39 @@ const Header = (props) => {
   const handleGoBack = () => history.goBack();
   const styles = useStyles();
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <AppBar
         position="static"
         style={{
           width: "100%",
           display: "flex",
-          alignItems: "flex-end",
+          alignItems: "center",
+
           flexDirection: "row-reverse",
         }}
       >
-        {auth.isAuth ? (
-          <Button onClick={handleDrawer}>
+        {auth.isAuth && !isBack(location.pathname) ? (
+          <Button style={{ alignSelf: "flex-end" }} onClick={handleDrawer}>
             <MenuIcon fontSize="large" />
           </Button>
-        ) : null}
+        ) : (
+          <Button onClick={handleGoBack}>
+            <ArrowBackIosIcon fontSize="large" />
+          </Button>
+        )}
+
         {!auth.isAuth && isBack(location.pathname) && (
           <Button onClick={handleGoBack}>
             <ArrowBackIosIcon fontSize="large" />
           </Button>
         )}
-        <div>{ownerInfo && <h4>{ownerInfo.firstname}</h4>}</div>
+        <div style={{ alignSelf: "flex-start" }}>
+          {ownerInfo && ownerInfo.data && (
+            <h4>
+              {ownerInfo.data.firstname} {ownerInfo.data.lastname}
+            </h4>
+          )}
+        </div>
       </AppBar>
     </div>
   );

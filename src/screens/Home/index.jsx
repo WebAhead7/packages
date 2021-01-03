@@ -24,6 +24,8 @@ const Home = (props) => {
   // }, []);
   const { auth, setAuth, ownerInfo, setOwnerInfo } = useContext(globalContext);
 
+  console.log("=====>>>>", ownerInfo);
+
   useEffect(() => {
     if (!ownerInfo.data) {
       getOwnerProfile(setOwnerInfo, auth.token);
@@ -37,11 +39,25 @@ const Home = (props) => {
 
   return (
     <>
-      <Container style={{ position: "relative", height: "100%" }}>
+      <Container
+        style={{ height: "100%", display: "flex", flexDirection: "column" }}
+      >
         <Filter />
+
         <PackageList data={packages} />
         <div style={{ position: "absolute", right: 25, bottom: 25 }}>
           {!ownerInfo.data.businessId && <AddPackageButton />}
+
+        <PackageList />
+        <div
+          style={{
+            position: "sticky",
+            right: 25,
+            bottom: 25,
+            alignSelf: "flex-end",
+          }}
+        >
+          <AddPackageButton />
         </div>
       </Container>
     </>
