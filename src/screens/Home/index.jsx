@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useState, useContext, useEffect } from "react";
-=======
-import React, { useContext, useEffect } from "react";
->>>>>>> dd2c8599c92194f348630b312969ecdf9b77b781
 import { globalContext } from "../../context/context";
 import { getOwnerProfile } from "../../api/api";
 import {
