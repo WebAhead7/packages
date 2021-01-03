@@ -82,28 +82,16 @@ const Addbackage = () => {
               value={values.quantity}
             />
           </FormControl>
-
-          <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="location">Location</InputLabel>
-            <Input
-              label="location"
-              id="location"
-              type="location"
-              onChange={(e) => handlerInputs(e, "location")}
-              value={values.location}
-            />
-          </FormControl>
-          <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="client">Search Client</InputLabel>
-            <Input
-              label="client"
-              id="client"
-              type="client"
-              onChange={(e) => handlerInputs(e, "client")}
-              value={values.client}
-            />
-          </FormControl>
         </form>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          startIcon={<AddIcon />}
+          className={styles.add_button}
+        >
+          Choose Client
+        </Button>
         <Button
           variant="contained"
           color="primary"

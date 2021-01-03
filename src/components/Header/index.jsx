@@ -20,16 +20,16 @@ import {
 const Header = (props) => {
   const location = useLocation();
   const routes = [
-    // HomeRoute,
     PackageRoute,
-    LoginRoute,
     ProfileRoute,
     RegisterRoute,
     AddPackageRoute,
     AddBusinessRoute,
   ];
 
-  const isBack = (r) => routes.some((route) => route == r);
+  const isBack = (r) => routes.some((route) => route === r);
+
+  console.log(isBack(location.pathname));
 
   let history = useHistory();
 
@@ -53,11 +53,16 @@ const Header = (props) => {
           flexDirection: "row-reverse",
         }}
       >
-        {auth.isAuth ? (
+        {auth.isAuth && !isBack(location.pathname) ? (
           <Button style={{ alignSelf: "flex-end" }} onClick={handleDrawer}>
             <MenuIcon fontSize="large" />
           </Button>
-        ) : null}
+        ) : (
+          <Button onClick={handleGoBack}>
+            <ArrowBackIosIcon fontSize="large" />
+          </Button>
+        )}
+
         {!auth.isAuth && isBack(location.pathname) && (
           <Button onClick={handleGoBack}>
             <ArrowBackIosIcon fontSize="large" />
