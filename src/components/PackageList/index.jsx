@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { globalContext } from "../../context/context";
 import { Typography } from "@material-ui/core";
 import useStyles from "./styles";
 import PackageItem from "../PackageItem";
@@ -14,8 +15,10 @@ const data = [
   { addedAt: "35 mins ago", status: "On transit", agent: "Mario" },
 ];
 
-const PackageList = () => {
+const PackageList = (props) => {
   const styles = useStyles();
+  //const data = props.data;
+
   return (
     <div style={{ position: "relative" }}>
       {data.map((item, index) => (
