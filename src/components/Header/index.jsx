@@ -33,7 +33,7 @@ const Header = (props) => {
 
   let history = useHistory();
 
-  const { drawer, setDrawer, auth } = useContext(globalContext);
+  const { drawer, setDrawer, auth, ownerInfo } = useContext(globalContext);
 
   const handleDrawer = () => {
     setDrawer(!drawer);
@@ -45,7 +45,12 @@ const Header = (props) => {
     <div>
       <AppBar
         position="static"
-        style={{ width: "100%", display: "flex", alignItems: "flex-end" }}
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "flex-end",
+          flexDirection: "row-reverse",
+        }}
       >
         {auth.isAuth ? (
           <Button onClick={handleDrawer}>
@@ -57,6 +62,7 @@ const Header = (props) => {
             <ArrowBackIosIcon fontSize="large" />
           </Button>
         )}
+        <div>{ownerInfo && <h4>{ownerInfo.firstname}</h4>}</div>
       </AppBar>
     </div>
   );

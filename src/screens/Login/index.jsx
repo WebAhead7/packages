@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { globalContext } from "../../context/context";
+import Loader from "../../components/Loader";
 import {
   Button,
   TextField,
@@ -15,15 +16,23 @@ import {
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
+import { setItemLocal, getItemLocal } from "../../hooks/localStorage";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import useStyles from "./styles";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { ownerLogin } from "../../hooks/useLogin";
+const get = "get";
 
 const Login = (props) => {
   const styles = useStyles();
-  const { drawer, setDrawer, auth, setAuth } = useContext(globalContext);
+  const { drawer, setDrawer, auth, setAuth, setOwnerInfo } = useContext(
+    globalContext
+  );
+
+  const token = getItemLocal("accessToken");
+
   const location = useLocation();
+
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -39,12 +48,14 @@ const Login = (props) => {
   });
 
   const handleLogin = (v) => {
-    ownerLogin(v, setAuth);
+    ownerLogin(v, setAuth, setOwnerInfo);
   };
 
   const handlerInputs = (event, inputName) => {
     setValues({ ...values, [inputName]: event.target.value });
   };
+
+  if (token) return <Loader />;
 
   return (
     <Container>
