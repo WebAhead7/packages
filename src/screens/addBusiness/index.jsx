@@ -18,6 +18,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import useStyles from "./styles";
+import { addBusiness } from "../../api/api";
 
 const days = [
   "Sunday",
@@ -43,15 +44,34 @@ const AddBusiness = () => {
 
   const styles = useStyles();
   const [values, setValues] = useState({
-    sname: "",
+    name: "",
+    storeId: Math.floor(Math.random() * 100).toString(),
     category: "",
     hours: "",
     email: "",
-    phone: "",
-    fax: "",
-    location: "",
+    phone: 0,
+    mobile: 0,
+    address: {
+      city: "haifa",
+      street: "Almuhdi",
+      building: "A75",
+      apartment: "b7",
+      specificAddress: "above the bove",
+      longitude: "35.87545",
+      latitude: "32.95424",
+    },
     about: "",
   });
+  // name: { type: String, required: true },
+  // storeId: { type: String, required: true },
+  // category: { type: [String], required: true },
+  // items: [{ type: ObjectId, ref: "Package" }],
+  // clients: [{ type: ObjectId, ref: "Client" }],
+  // phone: { type: Number, required: true },
+  // mobile: { type: Number, required: true },
+  // email: { type: String, required: true },
+  // about: { type: String, required: true },
+  // address: { type: addressSchema, required: true },
   //   const [selectedDate, setSelectedDate] = useState({ sun1: new Date('2014-08-18T21:11:54'), sun2: new Date('2014-08-18T21:11:54'), mon1 : new Date('2014-08-18T21:11:54'), mon2: new Date('2014-08-18T21:11:54'), tue1 : new Date('2014-08-18T21:11:54'), tue2 : new Date('2014-08-18T21:11:54'), wed1 : new Date('2014-08-18T21:11:54'),wed2 : new Date('2014-08-18T21:11:54'), thu1 : new Date('2014-08-18T21:11:54'), thu2 : new Date('2014-08-18T21:11:54'), fri1 :new Date('2014-08-18T21:11:54'), fri2 : new Date('2014-08-18T21:11:54'), sat1 : new Date('2014-08-18T21:11:54'), sat2: new Date('2014-08-18T21:11:54')
 
   // });
@@ -92,11 +112,11 @@ const AddBusiness = () => {
 
         <form>
           <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="sname">Shop Name</InputLabel>
+            <InputLabel htmlFor="name">Shop Name</InputLabel>
             <Input
-              label="sname"
-              id="sname"
-              onChange={(e) => handlerInputs(e, "sname")}
+              label="name"
+              id="name"
+              onChange={(e) => handlerInputs(e, "name")}
               value={values.sname}
             />
           </FormControl>
@@ -408,12 +428,12 @@ const AddBusiness = () => {
             />
           </FormControl>
           <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="fax">Fax</InputLabel>
+            <InputLabel htmlFor="mobile">mobile</InputLabel>
             <Input
-              label="fax"
-              id="fax"
-              onChange={(e) => handlerInputs(e, "fax")}
-              value={values.fax}
+              label="mobile"
+              id="mobile"
+              onChange={(e) => handlerInputs(e, "mobile")}
+              value={values.mobile}
             />
           </FormControl>
           <FormControl className={styles.input_top}>
@@ -451,7 +471,10 @@ const AddBusiness = () => {
           variant="contained"
           color="primary"
           className={styles.button}
-          onClick={() => console.log(values, selectedDate)}
+          onClick={() => {
+            console.log(" VALUES HERE", values);
+            addBusiness(values);
+          }}
         >
           Finish
         </Button>

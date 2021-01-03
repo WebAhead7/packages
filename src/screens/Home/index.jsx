@@ -18,15 +18,18 @@ import { getAllPackages } from "../../api/api";
 
 const Home = (props) => {
   const [packages, setPackages] = useState(null);
-  useEffect(() => {
-    getAllPackages(setPackages);
-    //setData(redata);
-  }, []);
+  // useEffect(() => {
+  //   getAllPackages(setPackages);
+  //   //setData(redata);
+  // }, []);
   const { auth, setAuth, ownerInfo, setOwnerInfo } = useContext(globalContext);
 
   useEffect(() => {
     if (!ownerInfo.data) {
       getOwnerProfile(setOwnerInfo, auth.token);
+    }
+    if (ownerInfo.data.businessId) {
+      getAllPackages(setPackages);
     }
   }, []);
 
@@ -38,7 +41,7 @@ const Home = (props) => {
         <Filter />
         <PackageList data={packages} />
         <div style={{ position: "absolute", right: 25, bottom: 25 }}>
-          <AddPackageButton />
+          {!ownerInfo.data.businessId && <AddPackageButton />}
         </div>
       </Container>
     </>

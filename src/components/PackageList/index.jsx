@@ -15,8 +15,9 @@ const data = [
   { addedAt: "35 mins ago", status: "On transit", agent: "Mario" },
 ];
 
-const PackageList = () => {
+const PackageList = (props) => {
   const styles = useStyles();
+  //const data = props.data;
 
   return (
     <div style={{ position: "relative" }}>

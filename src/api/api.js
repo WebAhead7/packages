@@ -1,3 +1,7 @@
+import axios from "axios";
+
+import { setItemLocal, getItemLocal } from "../hooks/localStorage";
+
 const owner = {
   owner: {
     role: "owner",
@@ -37,26 +41,40 @@ const owner = {
 
 window.localStorage.setItem("owner", JSON.stringify(owner));
 const data = JSON.parse(window.localStorage.getItem("owner"));
-console.log("1111", data);
+const local = "http://localhost:4000";
 
-export const getAllPackages = async () => {
-  const local = "http://localhost:4000";
-  const businessId = data.owner._id;
+export const addBusiness = async (values) => {
+  const response = await fetch(`${local}/business`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${data.accessToken}`,
+      body: JSON.stringify(values),
+    },
+  });
+  const res = await response.json();
+  console.log("helpp", res);
+  console.log("help22", values);
+};
 
+export const getAllPackages = async (setPackages) => {
   try {
-    const packages = await fetch(`${local}/package/:businessId`, {
+    const response = await fetch(`${local}/package/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${data.accessToken}`,
       },
+      body: JSON.stringify(values),
     });
-    console.log(packages);
+
+    const res = await response.json();
+
+    setPackages(res);
   } catch (err) {
     console.log(err);
-import axios from "axios";
-
-import { setItemLocal, getItemLocal } from "../hooks/localStorage";
+  }
+};
 
 export const getOwnerProfile = async (setOwnerInfo, token) => {
   const options = {
