@@ -14,26 +14,34 @@ import Loader from "../../components/Loader";
 import PackageList from "../../components/PackageList";
 import Filter from "../../components/Filter";
 import AddPackageButton from "../../components/AddPackageButton";
+import AddStoreButton from "../../components/AddStoreButton";
+
 import { getAllPackages } from "../../api/api";
 
 const Home = (props) => {
-  const [packages, setPackages] = useState(null);
-  // useEffect(() => {
-  //   getAllPackages(setPackages);
-  //   //setData(redata);
-  // }, []);
-  const { auth, setAuth, ownerInfo, setOwnerInfo } = useContext(globalContext);
+  const {
+    auth,
+    setAuth,
+    ownerInfo,
+    setOwnerInfo,
+    packages,
+    setPackages,
+  } = useContext(globalContext);
+
+  useEffect(() => {
+    console.log("test");
+    getAllPackages(setPackages, auth.token);
+  }, []);
 
   useEffect(() => {
     if (!ownerInfo.data) {
       getOwnerProfile(setOwnerInfo, auth.token);
     }
-    if (ownerInfo.data.businessId) {
-      getAllPackages(setPackages);
-    }
   }, []);
 
   if (ownerInfo.isLoading) return <Loader />;
+
+  console.log(ownerInfo);
 
   return (
     <>
@@ -41,22 +49,21 @@ const Home = (props) => {
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
         <Filter />
+        {ownerInfo.data && !ownerInfo.data.businessId && <AddStoreButton />}
+        {packages && <PackageList data={packages} />}
 
-        <PackageList data={packages} />
-        <div style={{ position: "absolute", right: 25, bottom: 25 }}>
-          {!ownerInfo.data.businessId && <AddPackageButton />}
-
-        <PackageList />
-        <div
-          style={{
-            position: "sticky",
-            right: 25,
-            bottom: 25,
-            alignSelf: "flex-end",
-          }}
-        >
-          <AddPackageButton />
-        </div>
+        {ownerInfo.data && ownerInfo.data.businessId && (
+          <div
+            style={{
+              position: "sticky",
+              right: 25,
+              bottom: 25,
+              alignSelf: "flex-end",
+            }}
+          >
+            <AddPackageButton />
+          </div>
+        )}
       </Container>
     </>
   );

@@ -7,13 +7,17 @@ const get = "get";
 const GlobalContextProvider = (props) => {
   const [filter, setFilter] = useState("all");
   const [drawer, setDrawer] = useState(false);
+  const [packages, setPackages] = useState({
+    isLoading: false,
+    data: null,
+  });
   const [ownerInfo, setOwnerInfo] = useState({
     isLoading: false,
     data: null,
   });
   const token = getItemLocal("accessToken");
   const [auth, setAuth] = useState({
-    isAuth: true,
+    isAuth: false,
     error: null,
     token: null,
     isLoading: false,
@@ -36,6 +40,8 @@ const GlobalContextProvider = (props) => {
         setAuth,
         setOwnerInfo,
         ownerInfo,
+        packages,
+        setPackages,
       }}
     >
       {props.children}

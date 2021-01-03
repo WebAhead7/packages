@@ -6,6 +6,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
     alignContent: "center",
+    background: "#fff",
   },
 
   header: {

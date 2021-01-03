@@ -1,10 +1,11 @@
 import React from "react";
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import moment from "moment";
 
 import useStyles from "./styles";
 
 const PackageItem = (props) => {
-  const { data } = props.data;
+  const { data } = props;
   const styles = useStyles();
   return (
     <Card className={styles.root}>
@@ -18,7 +19,7 @@ const PackageItem = (props) => {
               Added at
             </Typography>
             <Typography variant="caption" className={styles.mainTitle}>
-              {data.createdAt}
+              {moment(data.createdAt).fromNow()}
             </Typography>
           </div>
           <div className={styles.innerCard}>
@@ -34,7 +35,7 @@ const PackageItem = (props) => {
               Agent
             </Typography>
             <Typography variant="caption" className={styles.mainTitle}>
-              {data.agent}
+              {data.agent ? data.agent : "Pending"}
             </Typography>
           </div>
         </CardContent>

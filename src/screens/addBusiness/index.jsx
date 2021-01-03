@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { globalContext } from "../../context/context";
+import { useHistory } from "react-router-dom";
 import {
   Button,
   TextField,
@@ -20,451 +22,228 @@ import DateFnsUtils from "@date-io/date-fns";
 import useStyles from "./styles";
 import { addBusiness } from "../../api/api";
 
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
+const categories = [
+  {
+    value: "food",
+    label: "Food",
+  },
+  {
+    value: "sport",
+    label: "Sport",
+  },
 ];
 
 const AddBusiness = () => {
-  const categories = [
-    {
-      value: "food",
-      label: "Food",
-    },
-    {
-      value: "sport",
-      label: "Sport",
-    },
-  ];
-
   const styles = useStyles();
+
+  const history = useHistory();
+
+  const { auth, setAuth } = useContext(globalContext);
+  const [isBusiness, setIsBusiness] = useState(false);
+
   const [values, setValues] = useState({
     name: "",
-    storeId: Math.floor(Math.random() * 100).toString(),
-    category: "",
-    hours: "",
+    storeId: "",
+    category: "food",
     email: "",
-    phone: 0,
-    mobile: 0,
-    address: {
-      city: "haifa",
-      street: "Almuhdi",
-      building: "A75",
-      apartment: "b7",
-      specificAddress: "above the bove",
-      longitude: "35.87545",
-      latitude: "32.95424",
-    },
+    phone: "",
+    mobile: "",
+
+    city: "",
+    street: "",
+    building: "",
+    apartment: "",
+    specificAddress: "",
+    longitude: "00",
+    latitude: "00",
+
     about: "",
   });
-  // name: { type: String, required: true },
-  // storeId: { type: String, required: true },
-  // category: { type: [String], required: true },
-  // items: [{ type: ObjectId, ref: "Package" }],
-  // clients: [{ type: ObjectId, ref: "Client" }],
-  // phone: { type: Number, required: true },
-  // mobile: { type: Number, required: true },
-  // email: { type: String, required: true },
-  // about: { type: String, required: true },
-  // address: { type: addressSchema, required: true },
-  //   const [selectedDate, setSelectedDate] = useState({ sun1: new Date('2014-08-18T21:11:54'), sun2: new Date('2014-08-18T21:11:54'), mon1 : new Date('2014-08-18T21:11:54'), mon2: new Date('2014-08-18T21:11:54'), tue1 : new Date('2014-08-18T21:11:54'), tue2 : new Date('2014-08-18T21:11:54'), wed1 : new Date('2014-08-18T21:11:54'),wed2 : new Date('2014-08-18T21:11:54'), thu1 : new Date('2014-08-18T21:11:54'), thu2 : new Date('2014-08-18T21:11:54'), fri1 :new Date('2014-08-18T21:11:54'), fri2 : new Date('2014-08-18T21:11:54'), sat1 : new Date('2014-08-18T21:11:54'), sat2: new Date('2014-08-18T21:11:54')
-
-  // });
-
-  const [selectedDate, setSelectedDate] = useState(
-    new Date("2014-08-18T21:11:54")
-  );
-
-  const [dates, setDate] = useState({
-    Sunday: new Date("2014-08-18T21:11:54"),
-    Monday: new Date("2014-08-18T21:11:54"),
-    Tuesday: Date("2014-08-18T21:11:54"),
-    Wednesday: new Date("2014-08-18T21:11:54"),
-    Thursday: new Date("2014-08-18T21:11:54"),
-    Friday: new Date("2014-08-18T21:11:54"),
-    Saturday: new Date("2014-08-18T21:11:54"),
-    Sunday1: new Date("2014-08-18T21:11:54"),
-    Monday1: new Date("2014-08-18T21:11:54"),
-    Tuesday1: new Date("2014-08-18T21:11:54"),
-    Wednesday1: new Date("2014-08-18T21:11:54"),
-    Thursday1: new Date("2014-08-18T21:11:54"),
-    Friday1: new Date("2014-08-18T21:11:54"),
-    Saturday1: new Date("2014-08-18T21:11:54"),
-  });
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
 
   const handlerInputs = (event, inputName) => {
     setValues({ ...values, [inputName]: event.target.value });
   };
 
+  const createStore = (v) => {
+    const data = {
+      name: v.name,
+      storeId: v.storeId,
+      category: v.category,
+      email: v.email,
+      phone: v.phone,
+      mobile: v.mobile,
+      address: {
+        city: v.city,
+        street: v.street,
+        building: v.building,
+        apartment: v.apartment,
+        specificAddress: v.specificAddress,
+        longitude: v.longitude,
+        latitude: v.latitude,
+      },
+      about: v.about,
+    };
+
+    addBusiness(data, auth.token, setAuth, setIsBusiness);
+  };
+
+  useEffect(() => {
+    if (isBusiness) {
+      history.push("/");
+    }
+  }, [isBusiness]);
+
   return (
     <Container>
       <div>
         <p className={styles.header}>Add Your Business</p>
-
         <form>
-          <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="name">Shop Name</InputLabel>
-            <Input
-              label="name"
-              id="name"
-              onChange={(e) => handlerInputs(e, "name")}
-              value={values.sname}
-            />
-          </FormControl>
-
-          <TextField
-            className={styles.input_top}
-            id="category"
-            select
-            label="Category"
-            value={values.category}
-            onChange={(e) => handlerInputs(e, "category")}
-            SelectProps={{
-              native: true,
-            }}
-            helperText="Please select your category"
-          >
-            {categories.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </TextField>
-          <p className={styles.title}>Working Days</p>
-
-          {days.map((day, index) => (
-            <FormControl className={styles.input_top} key={index}>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Grid container spacing={3}>
-                  <Grid item xs>
-                    <p>{day}</p>
-                  </Grid>
-                  <Grid item xs>
-                    <KeyboardTimePicker
-                      margin="normal"
-                      id={day}
-                      label="Open Hour"
-                      value={dates[day]}
-                      onChange={(date) =>
-                        setDate(...dates, (dates[day] = date))
-                      }
-                      KeyboardButtonProps={{
-                        "aria-label": "change time",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <KeyboardTimePicker
-                      margin="normal"
-                      id={`${day}1`}
-                      label="Close Hour"
-                      value={dates[`${day}1`]}
-                      onChange={(date) =>
-                        setDate(...dates, (dates[`${day}1`] = date))
-                      }
-                      KeyboardButtonProps={{
-                        "aria-label": "change time",
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-              </MuiPickersUtilsProvider>
+          <Grid>
+            <FormControl className={styles.input_top}>
+              <TextField
+                className={styles.input_top}
+                id="category"
+                select
+                label="Category"
+                value={values.category}
+                onChange={(e) => {
+                  handlerInputs(e, "category");
+                  console.log(e.target.value);
+                }}
+                SelectProps={{
+                  native: true,
+                }}
+                helperText="Please select your category"
+              >
+                {categories.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </TextField>
             </FormControl>
-          ))}
+            <FormControl className={styles.input_top}>
+              <InputLabel htmlFor="name">Shop Name</InputLabel>
+              <Input
+                label="name"
+                id="name"
+                onChange={(e) => handlerInputs(e, "name")}
+                value={values.name}
+              />
+            </FormControl>
+            <FormControl className={styles.input_top}>
+              <InputLabel htmlFor="storeId">Store ID</InputLabel>
+              <Input
+                label="storeId"
+                id="storeId"
+                onChange={(e) => handlerInputs(e, "storeId")}
+                value={values.storeId}
+              />
+            </FormControl>
 
-          {/* <FormControl className={styles.input_top}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container spacing={3}>
-                <Grid item xs>
-                  <p>Sunday</p>
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="sun1"
-                    label="Open Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
+            <FormControl className={styles.input_top}>
+              <InputLabel htmlFor="phone">Phone number</InputLabel>
+              <Input
+                label="phone"
+                id="phone"
+                onChange={(e) => handlerInputs(e, "phone")}
+                value={values.phone}
+              />
+            </FormControl>
+            <FormControl className={styles.input_top}>
+              <InputLabel htmlFor="mobile">Mobile number</InputLabel>
+              <Input
+                label="mobile"
+                id="mobile"
+                onChange={(e) => handlerInputs(e, "mobile")}
+                value={values.mobile}
+              />
+            </FormControl>
+            <FormControl className={styles.input_top}>
+              <InputLabel htmlFor="email">Email</InputLabel>
+              <Input
+                label="email"
+                id="email"
+                onChange={(e) => handlerInputs(e, "email")}
+                value={values.email}
+              />
+            </FormControl>
+            <Grid container spacing={2}>
+              <Grid item xs>
+                <FormControl className={styles.input_top}>
+                  <InputLabel htmlFor="city">City</InputLabel>
+                  <Input
+                    type="text"
+                    label="city"
+                    id="city"
+                    onChange={(e) => handlerInputs(e, "city")}
+                    value={values.city}
                   />
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="sun2"
-                    label="Close Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
+                </FormControl>
               </Grid>
-            </MuiPickersUtilsProvider>
-          </FormControl>
-          <FormControl className={styles.input_top}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container spacing={3}>
-                <Grid item xs>
-                  <p>Monday</p>
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="mon1"
-                    label="Open Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
+              <Grid item xs>
+                <FormControl className={styles.input_top}>
+                  <InputLabel htmlFor="street">Street</InputLabel>
+                  <Input
+                    type="text"
+                    label="street"
+                    id="street"
+                    onChange={(e) => handlerInputs(e, "street")}
+                    value={values.street}
                   />
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="mon2"
-                    label="Close Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
+                </FormControl>
               </Grid>
-            </MuiPickersUtilsProvider>
-          </FormControl>
-
-          <FormControl className={styles.input_top}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container spacing={3}>
-                <Grid item xs>
-                  <p>Tuesday</p>
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="tus1"
-                    label="Open Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
+            </Grid>
+            <Grid container spacing={2}>
+              <Grid item xs>
+                <FormControl className={styles.input_top}>
+                  <InputLabel htmlFor="address">Building</InputLabel>
+                  <Input
+                    type="text"
+                    label="building"
+                    id="building"
+                    onChange={(e) => handlerInputs(e, "building")}
+                    value={values.building}
                   />
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="tus2"
-                    label="Close Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
+                </FormControl>
               </Grid>
-            </MuiPickersUtilsProvider>
-          </FormControl>
-
-          <FormControl className={styles.input_top}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container spacing={3}>
-                <Grid item xs>
-                  <p>Wednesday</p>
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="wed1"
-                    label="Open Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
+              <Grid item xs>
+                <FormControl className={styles.input_top}>
+                  <InputLabel htmlFor="apartment">Apartment</InputLabel>
+                  <Input
+                    type="text"
+                    label="apartment"
+                    id="apartment"
+                    onChange={(e) => handlerInputs(e, "apartment")}
+                    value={values.apartment}
                   />
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="wed2"
-                    label="Close Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
+                </FormControl>
               </Grid>
-            </MuiPickersUtilsProvider>
-          </FormControl>
-
-          <FormControl className={styles.input_top}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container spacing={3}>
-                <Grid item xs>
-                  <p>Thursday</p>
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="thu1"
-                    label="Open Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="thu2"
-                    label="Close Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </MuiPickersUtilsProvider>
-          </FormControl>
-
-          <FormControl className={styles.input_top}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container spacing={3}>
-                <Grid item xs>
-                  <p>Friday</p>
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="fri1"
-                    label="Open Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="fri2"
-                    label="Close Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </MuiPickersUtilsProvider>
-          </FormControl>
-
-          <FormControl className={styles.input_top}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container spacing={3}>
-                <Grid item xs>
-                  <p>Saturday</p>
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="sat1"
-                    label="Open Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
-                <Grid item xs>
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="sat2"
-                    label="Close Hour"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </MuiPickersUtilsProvider>
-          </FormControl> */}
-
-          <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="phone">Phone</InputLabel>
-            <Input
-              label="phone"
-              id="phone"
-              onChange={(e) => handlerInputs(e, "phone")}
-              value={values.phone}
-            />
-          </FormControl>
-          <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="mobile">mobile</InputLabel>
-            <Input
-              label="mobile"
-              id="mobile"
-              onChange={(e) => handlerInputs(e, "mobile")}
-              value={values.mobile}
-            />
-          </FormControl>
-          <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="email">Email</InputLabel>
-            <Input
-              label="email"
-              id="email"
-              onChange={(e) => handlerInputs(e, "email")}
-              value={values.email}
-            />
-          </FormControl>
-
-          <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="location">Location</InputLabel>
-            <Input
-              label="location"
-              id="location"
-              onChange={(e) => handlerInputs(e, "location")}
-              value={values.location}
-            />
-          </FormControl>
-
-          <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="about">About your Shop</InputLabel>
-            <Input
-              label="about"
-              id="about"
-              onChange={(e) => handlerInputs(e, "about")}
-              value={values.about}
-            />
-          </FormControl>
+            </Grid>
+            <Grid>
+              <FormControl className={styles.input_top}>
+                <InputLabel htmlFor="specificAddress">
+                  Specific address
+                </InputLabel>
+                <Input
+                  type="text"
+                  label="specificAddress"
+                  id="specificAddress"
+                  onChange={(e) => handlerInputs(e, "specificAddress")}
+                  value={values.specificAddress}
+                />
+              </FormControl>
+              <FormControl className={styles.input_top}>
+                <InputLabel htmlFor="about">About the shop</InputLabel>
+                <Input
+                  label="about"
+                  id="about"
+                  onChange={(e) => handlerInputs(e, "about")}
+                  value={values.about}
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
         </form>
 
         <Button
@@ -472,8 +251,7 @@ const AddBusiness = () => {
           color="primary"
           className={styles.button}
           onClick={() => {
-            console.log(" VALUES HERE", values);
-            addBusiness(values);
+            createStore(values);
           }}
         >
           Finish

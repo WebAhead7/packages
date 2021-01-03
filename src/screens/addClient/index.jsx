@@ -15,48 +15,73 @@ import {
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { addClient } from "../../api/api";
 import useStyles from "./styles";
 
-const Addclient = () => {
+const Addclient = (props) => {
+  const { token, handleClose } = props;
   const styles = useStyles();
   const [values, setValues] = useState({
-    fname: "",
-    lname: "",
+    firstname: "",
+    lastname: "",
     email: "",
     phone: "",
+
     city: "",
     street: "",
     building: "",
     apartment: "",
-    post: "",
+    specificAddress: "",
+    longitude: "00",
+    latitude: "00",
   });
 
   const handlerInputs = (event, inputName) => {
     setValues({ ...values, [inputName]: event.target.value });
   };
 
+  const handleClient = (v) => {
+    const data = {
+      firstname: v.firstname,
+      lastname: v.lastname,
+      email: v.email,
+      phone: v.phone,
+      address: {
+        city: v.city,
+        street: v.street,
+        building: v.building,
+        apartment: v.apartment,
+        specificAddress: v.specificAddress,
+        longitude: v.longitude,
+        latitude: v.latitude,
+      },
+    };
+
+    addClient(data, token, handleClose);
+  };
+
   return (
-    <Container>
+    <Container style={{ background: "#fff", width: "90%" }}>
       <div>
         <p className={styles.header}>Add New Client</p>
 
         <form>
           <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="fname">First Name</InputLabel>
+            <InputLabel htmlFor="firstname">First Name</InputLabel>
             <Input
-              label="fname"
-              id="fname"
-              onChange={(e) => handlerInputs(e, "fname")}
-              value={values.fname}
+              label="firstname"
+              id="firstname"
+              onChange={(e) => handlerInputs(e, "firstname")}
+              value={values.firstname}
             />
           </FormControl>
           <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="lname">Last Name</InputLabel>
+            <InputLabel htmlFor="lastname">Last Name</InputLabel>
             <Input
-              label="lname"
-              id="lname"
-              onChange={(e) => handlerInputs(e, "lname")}
-              value={values.lname}
+              label="lastname"
+              id="lastname"
+              onChange={(e) => handlerInputs(e, "lastname")}
+              value={values.lastname}
             />
           </FormControl>
           <Grid container spacing={2}>
@@ -112,6 +137,16 @@ const Addclient = () => {
             </Grid>
           </Grid>
           <FormControl className={styles.input_top}>
+            <InputLabel htmlFor="specificAddress">Specific Address</InputLabel>
+            <Input
+              type="specificAddress"
+              label="specificAddress"
+              id="specificAddress"
+              onChange={(e) => handlerInputs(e, "specificAddress")}
+              value={values.specificAddress}
+            />
+          </FormControl>
+          <FormControl className={styles.input_top}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <Input
               type="email"
@@ -122,12 +157,12 @@ const Addclient = () => {
             />
           </FormControl>
           <FormControl className={styles.input_top}>
-            <InputLabel htmlFor="post">PO Box</InputLabel>
+            <InputLabel htmlFor="phone">Phone</InputLabel>
             <Input
-              id="post"
+              id="phone"
               type="text"
-              value={values.post}
-              onChange={(e) => handlerInputs(e, "post")}
+              value={values.phone}
+              onChange={(e) => handlerInputs(e, "phone")}
             />
           </FormControl>
         </form>
@@ -135,7 +170,7 @@ const Addclient = () => {
           variant="contained"
           color="primary"
           className={styles.button}
-          onClick={() => console.log(values)}
+          onClick={() => handleClient(values)}
         >
           Finish
         </Button>
