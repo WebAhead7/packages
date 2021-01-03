@@ -20,7 +20,7 @@ import AddIcon from "@material-ui/icons/Add";
 
 import useStyles from "./styles";
 
-const Addbackage = () => {
+const AddPackage = () => {
   const styles = useStyles();
   const { auth, setAuth } = useContext(globalContext);
   const [values, setValues] = useState({
@@ -67,7 +67,7 @@ const Addbackage = () => {
   return (
     <Container>
       <div>
-        <p className={styles.header}>Add Backage</p>
+        <p className={styles.header}>Add Package</p>
         <form>
           <FormControl className={styles.input_top}>
             <InputLabel htmlFor="name">Package Name</InputLabel>
@@ -155,4 +155,4 @@ const Addbackage = () => {
   );
 };
 
-export default Addbackage;
+export default AddPackage;
