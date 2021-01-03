@@ -7,6 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { globalContext } from "../../context/context";
+import { removeItemLocal } from "../../hooks/localStorage";
 import HomeIcon from "@material-ui/icons/Home";
 import InfoIcon from "@material-ui/icons/Info";
 import {
@@ -45,10 +46,27 @@ const useStyles = makeStyles({
 export default function DrawerNav(props) {
   const styles = useStyles();
   const [state, setState] = React.useState(false);
-  const { drawer, setDrawer, auth, setAuth } = useContext(globalContext);
+  const { drawer, setDrawer, auth, setAuth, setOwnerInfo } = useContext(
+    globalContext
+  );
 
   const toggleDrawer = () => {
     setDrawer(!drawer);
+  };
+
+  const logout = () => {
+    removeItemLocal("accessToken");
+    setAuth({
+      isAuth: false,
+      error: null,
+      token: null,
+      isLoading: false,
+    });
+
+    setOwnerInfo({
+      isLoading: false,
+      data: null,
+    });
   };
 
   return (
@@ -142,6 +160,18 @@ export default function DrawerNav(props) {
                   <ListItemText primary={"Add Business"} />
                 </ListItem>
               </Link>
+              <ListItem
+                button
+                onClick={() => {
+                  logout();
+                  toggleDrawer();
+                }}
+              >
+                <ListItemIcon>
+                  <InfoIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Logout"} />
+              </ListItem>
             </List>
           </Drawer>
 

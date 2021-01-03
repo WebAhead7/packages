@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const ownerLogin = async (loginInfo, setAuth) => {
+import { setItemLocal, getItemLocal } from "../hooks/localStorage";
+
+export const ownerLogin = async (loginInfo, setAuth, setOwnerInfo) => {
   const options = {
     method: "POST",
     url: "http://localhost:4000/owner/login",
@@ -15,6 +17,13 @@ export const ownerLogin = async (loginInfo, setAuth) => {
       body: JSON.stringify(loginInfo),
     });
 
+    setAuth({
+      isAuth: false,
+      error: null,
+      token: null,
+      isLoading: true,
+    });
+
     const response = await res.json();
 
     console.log(response);
@@ -22,14 +31,20 @@ export const ownerLogin = async (loginInfo, setAuth) => {
       setAuth({
         isAuth: true,
         error: null,
-        token: res.accessToken,
+        token: response.accessToken,
+        isLoading: false,
       });
+
+      setOwnerInfo(response.owner);
+
+      setItemLocal("accessToken", response.accessToken);
     }
   } catch (e) {
     setAuth({
       isAuth: false,
       error: e.message,
       token: null,
+      isLoading: false,
     });
   }
 };

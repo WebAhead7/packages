@@ -2,21 +2,17 @@ import { useEffect, useState } from "react";
 
 const PREFIX = "packages-owner-";
 
-export default function useLocalStorage(key, initialValue) {
-  const prefixKey = PREFIX + key;
-  const [value, setValue] = useState(() => {
-    const jsonValue = localStorage.getItem(prefixKey);
-    if (jsonValue != null) return JSON.parse(jsonValue);
-    if (typeof initialValue === "function") {
-      return initialValue();
-    } else {
-      return initialValue;
-    }
-  });
+export const useLocalStorage = (method, key, initialValue) => {
+  const prefixedKey = `${PREFIX}${key}`;
 
-  useEffect(() => {
-    localStorage.setItem(prefixKey, JSON.stringify(value));
-  }, [prefixKey, value]);
+  if (method === "get") {
+    const getLocalStorage = localStorage.getItem(prefixedKey);
+    return JSON.parse(getLocalStorage);
+  }
 
-  return [value, setValue];
-}
+  if (method === "set") {
+    localStorage.setItem(prefixedKey, JSON.stringify(initialValue));
+  }
+
+  return;
+};
