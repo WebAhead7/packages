@@ -42,18 +42,19 @@ const Header = (props) => {
   const handleGoBack = () => history.goBack();
   const styles = useStyles();
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <AppBar
         position="static"
         style={{
           width: "100%",
           display: "flex",
-          alignItems: "flex-end",
+          alignItems: "center",
+
           flexDirection: "row-reverse",
         }}
       >
         {auth.isAuth ? (
-          <Button onClick={handleDrawer}>
+          <Button style={{ alignSelf: "flex-end" }} onClick={handleDrawer}>
             <MenuIcon fontSize="large" />
           </Button>
         ) : null}
@@ -62,7 +63,13 @@ const Header = (props) => {
             <ArrowBackIosIcon fontSize="large" />
           </Button>
         )}
-        <div>{ownerInfo && <h4>{ownerInfo.firstname}</h4>}</div>
+        <div style={{ alignSelf: "flex-start" }}>
+          {ownerInfo && ownerInfo.data && (
+            <h4>
+              {ownerInfo.data.firstname} {ownerInfo.data.lastname}
+            </h4>
+          )}
+        </div>
       </AppBar>
     </div>
   );

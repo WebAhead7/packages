@@ -5,10 +5,14 @@ import App from "./App";
 import GlobalContextProvider from "./context/context";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GlobalContextProvider>
-      <App />
-    </GlobalContextProvider>
-  </React.StrictMode>,
+  <GlobalContextProvider>
+    <App />
+  </GlobalContextProvider>,
+
   document.getElementById("root")
 );
+
+// <React.StrictMode>
+{
+  /* </React.StrictMode>, */
+}

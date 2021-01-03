@@ -1,11 +1,13 @@
 import React from "react";
 import { Typography, Avatar, Container } from "@material-ui/core";
 import useStyles from "./styles";
+import moment from "moment";
 
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import EditIcon from "@material-ui/icons/Edit";
 
-const ProfileHeader = () => {
+const ProfileHeader = (props) => {
+  const { firstname, lastname, createdAt } = props.data.data;
   const styles = useStyles();
 
   return (
@@ -17,7 +19,7 @@ const ProfileHeader = () => {
           src="/assets/images/profile.png"
         />
         <Typography style={{ marginTop: 10 }} variant="h5">
-          Owner Name
+          {`${firstname} ${lastname}`}
         </Typography>
         <div className={styles.controls}>
           <div className={styles.innerControls}>
@@ -25,7 +27,7 @@ const ProfileHeader = () => {
               User since:
             </Typography>
             <Typography variant="subtitle2" style={{ color: "#5A5A5A" }}>
-              October 02, 2019
+              {moment(createdAt).format("LL")}
             </Typography>
           </div>
           <div>

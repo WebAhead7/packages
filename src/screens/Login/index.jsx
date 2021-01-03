@@ -108,13 +108,6 @@ const Login = (props) => {
           Signup
         </Link>
       </div>
-      <Backdrop
-        style={{ zIndex: 1, color: "#fff" }}
-        open={open}
-        onClick={handleClose}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
     </Container>
   );
 };

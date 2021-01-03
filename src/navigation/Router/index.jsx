@@ -25,6 +25,7 @@ import Register from "../../screens/Signup";
 import AddPackage from "../../screens/AddBackage";
 import AddBusiness from "../../screens/AddBusiness";
 import Header from "../../components/Header";
+import AddPackageButton from "../../components/AddPackageButton";
 
 export const HomeRoute = "/";
 export const PackageRoute = "/package";
@@ -70,7 +71,7 @@ export default function DrawerNav(props) {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Router>
         <Header {...props} />
         <React.Fragment>
@@ -88,7 +89,7 @@ export default function DrawerNav(props) {
                   <ListItemText primary={"Home"} />
                 </ListItem>
               </Link>
-              <Link
+              {/* <Link
                 to={PackageRoute}
                 className={styles.link}
                 style={{ textDecoration: "none", color: "#000" }}
@@ -99,19 +100,8 @@ export default function DrawerNav(props) {
                   </ListItemIcon>
                   <ListItemText primary={"Package"} />
                 </ListItem>
-              </Link>
-              <Link
-                to={LoginRoute}
-                className={styles.link}
-                style={{ textDecoration: "none", color: "#000" }}
-              >
-                <ListItem button onClick={toggleDrawer}>
-                  <ListItemIcon>
-                    <InfoIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Login"} />
-                </ListItem>
-              </Link>
+              </Link> */}
+
               <Link
                 to={ProfileRoute}
                 className={styles.link}
@@ -124,19 +114,7 @@ export default function DrawerNav(props) {
                   <ListItemText primary={"Profile"} />
                 </ListItem>
               </Link>
-              <Link
-                to={RegisterRoute}
-                className={styles.link}
-                style={{ textDecoration: "none", color: "#000" }}
-              >
-                <ListItem button onClick={toggleDrawer}>
-                  <ListItemIcon>
-                    <InfoIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Register"} />
-                </ListItem>
-              </Link>
-              <Link
+              {/* <Link
                 to={AddPackageRoute}
                 className={styles.link}
                 style={{ textDecoration: "none", color: "#000" }}
@@ -159,7 +137,7 @@ export default function DrawerNav(props) {
                   </ListItemIcon>
                   <ListItemText primary={"Add Business"} />
                 </ListItem>
-              </Link>
+              </Link> */}
               <ListItem
                 button
                 onClick={() => {
