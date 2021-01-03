@@ -9,16 +9,29 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { globalContext } from "../../context/context";
 import HomeIcon from "@material-ui/icons/Home";
 import InfoIcon from "@material-ui/icons/Info";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import Home from "../../screens/Home";
 import Package from "../../screens/Package";
 import Login from "../../screens/Login";
 import Profile from "../../screens/Profile";
+import Register from "../../screens/Signup";
+import AddPackage from "../../screens/AddBackage";
+import AddBusiness from "../../screens/AddBusiness";
+import Header from "../../components/Header";
 
 export const HomeRoute = "/";
 export const PackageRoute = "/package";
 export const LoginRoute = "/login";
 export const ProfileRoute = "/profile";
+export const RegisterRoute = "/register";
+export const AddPackageRoute = "/add_package";
+export const AddBusinessRoute = "/add_business";
 
 const useStyles = makeStyles({
   list: {
@@ -29,10 +42,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DrawerNav() {
+export default function DrawerNav(props) {
   const styles = useStyles();
   const [state, setState] = React.useState(false);
-  const { drawer, setDrawer } = useContext(globalContext);
+  const { drawer, setDrawer, auth, setAuth } = useContext(globalContext);
 
   const toggleDrawer = () => {
     setDrawer(!drawer);
@@ -41,6 +54,7 @@ export default function DrawerNav() {
   return (
     <div>
       <Router>
+        <Header {...props} />
         <React.Fragment>
           <Drawer anchor={"left"} open={drawer} onClose={toggleDrawer}>
             <List>
@@ -92,23 +106,85 @@ export default function DrawerNav() {
                   <ListItemText primary={"Profile"} />
                 </ListItem>
               </Link>
+              <Link
+                to={RegisterRoute}
+                className={styles.link}
+                style={{ textDecoration: "none", color: "#000" }}
+              >
+                <ListItem button onClick={toggleDrawer}>
+                  <ListItemIcon>
+                    <InfoIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Register"} />
+                </ListItem>
+              </Link>
+              <Link
+                to={AddPackageRoute}
+                className={styles.link}
+                style={{ textDecoration: "none", color: "#000" }}
+              >
+                <ListItem button onClick={toggleDrawer}>
+                  <ListItemIcon>
+                    <InfoIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Add Package"} />
+                </ListItem>
+              </Link>
+              <Link
+                to={AddBusinessRoute}
+                className={styles.link}
+                style={{ textDecoration: "none", color: "#000" }}
+              >
+                <ListItem button onClick={toggleDrawer}>
+                  <ListItemIcon>
+                    <InfoIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Add Business"} />
+                </ListItem>
+              </Link>
             </List>
           </Drawer>
 
-          <Switch>
-            <Route exact path={HomeRoute}>
-              <Home />
-            </Route>
-            <Route path={PackageRoute}>
-              <Package />
-            </Route>
-            <Route path={LoginRoute}>
-              <Login />
-            </Route>
-            <Route path={ProfileRoute}>
-              <Profile />
-            </Route>
-          </Switch>
+          {!auth.isAuth ? (
+            <>
+              <Switch>
+                <Route exact path={HomeRoute}>
+                  <Login {...props} />
+                </Route>
+                <Route path={RegisterRoute}>
+                  <Register />
+                </Route>
+                <Route render={() => <Redirect to="/" />} />
+              </Switch>
+            </>
+          ) : (
+            <>
+              <Switch>
+                <Route exact path={HomeRoute}>
+                  <Home />
+                </Route>
+                <Route path={PackageRoute}>
+                  <Package />
+                </Route>
+                <Route path={LoginRoute}>
+                  <Login />
+                </Route>
+                <Route path={ProfileRoute}>
+                  <Profile />
+                </Route>
+                <Route path={RegisterRoute}>
+                  <Register />
+                </Route>
+                <Route path={AddPackageRoute}>
+                  <AddPackage />
+                </Route>
+                <Route path={AddBusinessRoute}>
+                  <AddBusiness />
+                </Route>
+                <Route render={() => <Redirect to="/" />} />
+              </Switch>
+            </>
+          )}
         </React.Fragment>
       </Router>
     </div>

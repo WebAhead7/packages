@@ -5,6 +5,11 @@ export const globalContext = createContext();
 const GlobalContextProvider = (props) => {
   const [filter, setFilter] = useState("all");
   const [drawer, setDrawer] = useState(false);
+  const [auth, setAuth] = useState({
+    isAuth: false,
+    error: null,
+    token: null,
+  });
 
   return (
     <globalContext.Provider
@@ -13,6 +18,8 @@ const GlobalContextProvider = (props) => {
         setFilter,
         drawer,
         setDrawer,
+        auth,
+        setAuth,
       }}
     >
       {props.children}

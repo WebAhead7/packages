@@ -7,12 +7,33 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useStyles from "./styles";
 
-const Header = () => {
-  // let location = useLocation().pathname;
+import {
+  HomeRoute,
+  PackageRoute,
+  LoginRoute,
+  ProfileRoute,
+  RegisterRoute,
+  AddPackageRoute,
+  AddBusinessRoute,
+} from "../../navigation/Router";
+
+const Header = (props) => {
+  const location = useLocation();
+  const routes = [
+    // HomeRoute,
+    PackageRoute,
+    LoginRoute,
+    ProfileRoute,
+    RegisterRoute,
+    AddPackageRoute,
+    AddBusinessRoute,
+  ];
+
+  const isBack = (r) => routes.some((route) => route == r);
 
   let history = useHistory();
 
-  const { drawer, setDrawer } = useContext(globalContext);
+  const { drawer, setDrawer, auth } = useContext(globalContext);
 
   const handleDrawer = () => {
     setDrawer(!drawer);
@@ -26,12 +47,16 @@ const Header = () => {
         position="static"
         style={{ width: "100%", display: "flex", alignItems: "flex-end" }}
       >
-        <Button onClick={handleDrawer}>
-          <MenuIcon fontSize="large" />
-        </Button>
-        {/* <Button onClick={handleGoBack}>
-          <ArrowBackIosIcon fontSize="large" />
-        </Button> */}
+        {auth.isAuth ? (
+          <Button onClick={handleDrawer}>
+            <MenuIcon fontSize="large" />
+          </Button>
+        ) : null}
+        {!auth.isAuth && isBack(location.pathname) && (
+          <Button onClick={handleGoBack}>
+            <ArrowBackIosIcon fontSize="large" />
+          </Button>
+        )}
       </AppBar>
     </div>
   );

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { globalContext } from "../../context/context";
 import {
   Button,
   TextField,
@@ -10,18 +11,36 @@ import {
   InputLabel,
   FormControl,
   Container,
+  Backdrop,
 } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import useStyles from "./styles";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { ownerLogin } from "../../hooks/useLogin";
 
-const Login = () => {
+const Login = (props) => {
   const styles = useStyles();
+  const { drawer, setDrawer, auth, setAuth } = useContext(globalContext);
+  const location = useLocation();
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
 
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
+
+  const handleLogin = (v) => {
+    ownerLogin(v, setAuth);
+  };
 
   const handlerInputs = (event, inputName) => {
     setValues({ ...values, [inputName]: event.target.value });
@@ -56,7 +75,7 @@ const Login = () => {
           variant="contained"
           color="primary"
           style={{ marginTop: 50, width: "100%" }}
-          onClick={() => console.log(values)}
+          onClick={() => handleLogin(values)}
         >
           Login
         </Button>
@@ -65,10 +84,26 @@ const Login = () => {
         <Typography variant="caption">
           If you don’t have an account, please register.
         </Typography>
-        <Button variant="outlined" color="primary" style={{ marginTop: 20 }}>
+        <Button
+          as={Link}
+          to="/register"
+          variant="outlined"
+          color="primary"
+          style={{ marginTop: 20 }}
+        >
           Signup
         </Button>
+        <Link to="/register" style={{ marginTop: 20 }}>
+          Signup
+        </Link>
       </div>
+      <Backdrop
+        style={{ zIndex: 1, color: "#fff" }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Container>
   );
 };
