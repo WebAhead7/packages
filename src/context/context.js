@@ -6,7 +6,7 @@ const GlobalContextProvider = (props) => {
   const [filter, setFilter] = useState("all");
   const [drawer, setDrawer] = useState(false);
   const [auth, setAuth] = useState({
-    isAuth: false,
+    isAuth: true,
     error: null,
     token: null,
   });

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { globalContext } from "../../context/context";
 import { Typography } from "@material-ui/core";
 import useStyles from "./styles";
 import PackageItem from "../PackageItem";
@@ -16,6 +17,7 @@ const data = [
 
 const PackageList = () => {
   const styles = useStyles();
+
   return (
     <div style={{ position: "relative" }}>
       {data.map((item, index) => (
