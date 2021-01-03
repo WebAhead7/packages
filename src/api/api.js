@@ -21,7 +21,6 @@ export const getOwnerProfile = async (setOwnerInfo, token) => {
     });
 
     const response = await res.json();
-    console.log(response);
 
     setOwnerInfo({
       isLoading: false,
@@ -56,8 +55,6 @@ export const signUpApi = async (setAuth, data) => {
     });
 
     const response = await res.json();
-
-    console.log(response);
 
     if (response.accessToken) {
       setAuth({

@@ -26,7 +26,6 @@ export const ownerLogin = async (loginInfo, setAuth, setOwnerInfo) => {
 
     const response = await res.json();
 
-    console.log(response);
     if (response.owner) {
       setAuth({
         isAuth: true,

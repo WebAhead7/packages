@@ -18,8 +18,6 @@ import AddPackageButton from "../../components/AddPackageButton";
 const Home = (props) => {
   const { auth, setAuth, ownerInfo, setOwnerInfo } = useContext(globalContext);
 
-  console.log("=====>>>>", ownerInfo);
-
   useEffect(() => {
     if (!ownerInfo.data) {
       getOwnerProfile(setOwnerInfo, auth.token);

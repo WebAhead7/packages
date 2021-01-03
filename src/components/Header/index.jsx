@@ -29,8 +29,6 @@ const Header = (props) => {
 
   const isBack = (r) => routes.some((route) => route === r);
 
-  console.log(isBack(location.pathname));
-
   let history = useHistory();
 
   const { drawer, setDrawer, auth, ownerInfo } = useContext(globalContext);
