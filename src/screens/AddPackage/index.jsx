@@ -20,7 +20,7 @@ import AddIcon from "@material-ui/icons/Add";
 
 import useStyles from "./styles";
 
-const Addbackage = () => {
+const AddPackage = () => {
   const styles = useStyles();
   const { auth, setAuth } = useContext(globalContext);
   const [values, setValues] = useState({
@@ -155,4 +155,4 @@ const Addbackage = () => {
   );
 };
 
-export default Addbackage;
+export default AddPackage;

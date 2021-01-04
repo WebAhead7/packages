@@ -22,7 +22,7 @@ import Package from "../../screens/Package";
 import Login from "../../screens/Login";
 import Profile from "../../screens/Profile";
 import Register from "../../screens/Signup";
-import AddPackage from "../../screens/AddBackage";
+import AddPackage from "../../screens/AddPackage";
 import AddBusiness from "../../screens/AddBusiness";
 import Header from "../../components/Header";
 import AddPackageButton from "../../components/AddPackageButton";

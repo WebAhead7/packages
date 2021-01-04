@@ -18,7 +18,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { addClient } from "../../api/api";
 import useStyles from "./styles";
 
-const Addclient = (props) => {
+const AddClient = (props) => {
   const { token, handleClose } = props;
   const styles = useStyles();
   const [values, setValues] = useState({
@@ -179,4 +179,4 @@ const Addclient = (props) => {
   );
 };
 
-export default Addclient;
+export default AddClient;
